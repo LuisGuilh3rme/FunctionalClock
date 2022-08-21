@@ -1,0 +1,40 @@
+* {
+    background-color: black;
+
+}
+
+@font-face {
+    font-family: "dsDigital", sans-serif;
+    src: url("src/ds_digital/DS-DIGI.TTF") format("truetype");
+    font-weight: 400;
+}
+
+#clock {
+    color: rgb(7, 255, 7);
+    font-size: 100px;
+    font-family: 'dsDigital';
+}
+
+.container {
+    height: 100%;
+}
+
+.center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.changeClock {
+    font-family: sans-serif;
+    position: absolute;
+    left: 50%;
+    top: 75%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    border-radius: none;
+    font-size: 50px;
+    width: fit-content;
+    color: rgb(7, 255, 7);
+}
