@@ -3,8 +3,10 @@
 const tradClock = document.querySelector('#traditionalClock');
 const clock = document.querySelector("#clock");
 
+const mHand = document.querySelector('#minutesHand');
+const hHand = document.querySelector('#hoursHand');
+
 let clockType = 0;
-tradClock.hidden = true;
 
 // Digital Clock
 setInterval(() => {
@@ -40,23 +42,67 @@ button.addEventListener('click', () => {
 
 // Switch clocks
 function switchClocks () {
-    if (clockType == 0) clockType = 1;
-    else clockType = 0;
-
+    clockType == 0 ? clockType = 1 : clockType = 0;
     switch (clockType) {
-        case 1: clock.hidden = false; tradClock.hidden = true; break;
-        case 2: clock.hidden = true; tradClock.hidden = false; break;
+        case 0: clock.hidden = false; tradClock.hidden = true; mHand.hidden = true; hHand.hidden = true; break;
+        case 1: clock.hidden = true; tradClock.hidden = false; mHand.hidden = false; hHand.hidden = false; break;
     }
 }
 
 // Traditional Clock
-display_image('src/clock-structure.png', 'JavaScriptImage');
+display_clock('src/clock-structure.png', 'Traditional Clock');
+display_MinutesHand('src/clock-hand.png', 'Traditional Clock Minutes-hand');
+display_HoursHand('src/clock-hand.png', 'Traditional Clock Hours-hand');
 
-function display_image(src, alt) {
+function display_clock(src, alt) {
     const a = document.createElement("img");
     a.src = src;
-    a.width = 100;
-    a.height = 100;
+    a.width = 250;
+    a.height = 250;
     a.alt = alt;
     tradClock.appendChild(a);
+    noDrag(a);
+}
+
+function display_MinutesHand(src, alt) {
+    const a = document.createElement("img");
+    a.src = src;
+    a.width = 200;
+    a.height = 200;
+    a.alt = alt;
+    mHand.appendChild(a);
+    noDrag(a);
+    minuteRotate(a);
+    setInterval(minuteRotate(a),1000);
+}
+
+function display_HoursHand(src, alt) {
+    const a = document.createElement("img");
+    a.src = src;
+    a.width = 150;
+    a.height = 150;
+    a.alt = alt;
+    hHand.appendChild(a);
+    noDrag(a);
+    hourRotate(a);
+    setInterval(hourRotate(a), 1000);
+}
+
+function noDrag (image) {
+    image.addEventListener('dragstart', (e) => {
+        e.preventDefault();
+    });
+}
+
+function hourRotate (image) {
+    const now = new Date ();
+    const total = (now.getMinutes()/60) + (now.getHours());
+    const rotate = 30*total;
+    image.style.transform = `rotate(${rotate}deg)`;
+}
+
+function minuteRotate (image) {
+    const now = new Date ();
+    const rotate = 6*now.getMinutes();
+    image.style.transform = `rotate(${rotate}deg)`;
 }
