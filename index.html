@@ -11,12 +11,18 @@
 <body>
     <div class="container">
         <div class="center">
-            <p id="clock"></p>
+            <div class="tempButtons noSelect">
+                <button id='tempStart' hidden>START</button>
+                <button id="tempStop" hidden>STOP</button>
+            </div>
+            <p id="timer" hidden>00:00:00</p>
+            <p id="clock">00:00:00</p>
                 <div id="traditionalClock" class="noSelect" hidden></div>
                 <div id="minutesHand" class="noSelect" hidden></div>
                 <div id="hoursHand" class="noSelect" hidden></div>
-        </div>
-        <button class="changeClock">CHANGE CLOCK</button>
+            </div>
+        <button id="changeClock">CHANGE CLOCK</button>
+        <button id="changeTimer">TIMER</button>
     </div>
 </body>
 </html>

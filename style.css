@@ -15,6 +15,12 @@ body {
     font-family: 'dsDigital';
 }
 
+#timer {
+    color: rgb(7, 255, 7);
+    font-size: 100px;
+    font-family: 'dsDigital';
+}
+
 #minutesHand {
     position: inherit;
     left: inherit;
@@ -27,6 +33,53 @@ body {
     left: inherit;
     top: inherit;
     transform: translate(-50%, -50%);
+}
+
+#changeClock {
+    font-family: 'ds-digital';
+    position: absolute;
+    left: 50%;
+    top: 75%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    font-size: 50px;
+    width: fit-content;
+    color: rgb(7, 255, 7);
+    background-color: black;
+}
+
+#changeTimer {
+    font-family: 'ds-digital';
+    position: absolute;
+    left: 50%;
+    top: 85%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    font-size: 50px;
+    width: fit-content;
+    color: rgb(7, 255, 7);
+    background-color: black;
+}
+
+.tempButtons {
+    display: flex;
+    justify-content: space-around;
+}
+
+#tempStop, #tempStart {
+    font-family: sans-serif;
+    font-weight: bold;
+    font-stretch: expanded;
+    cursor: pointer;
+    border: 1px solid white;
+    border-radius: none;
+    width: 40%;
+    height: 50px;
+    background-color: rgb(255, 0, 0);
+}
+
+#tempStop:hover, #tempStart:hover {
+    background-color: rgb(224, 5, 5);
 }
 
 .container {
@@ -42,18 +95,4 @@ body {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-}
-
-.changeClock {
-    font-family: sans-serif;
-    position: absolute;
-    left: 50%;
-    top: 75%;
-    transform: translate(-50%, -50%);
-    cursor: pointer;
-    border-radius: none;
-    font-size: 50px;
-    width: fit-content;
-    color: rgb(7, 255, 7);
-    background-color: black;
 }
