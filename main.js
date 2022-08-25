@@ -2,7 +2,7 @@
 // Clocks
 const tradClock = document.querySelector('#traditionalClock');
 const clock = document.querySelector("#clock");
-const timer = document.querySelector('#timer');
+const stopwatch = document.querySelector('#stopwatch');
 
 const mHand = document.querySelector('#minutesHand');
 const hHand = document.querySelector('#hoursHand');
@@ -43,13 +43,13 @@ button.addEventListener('click', () => {
 });
 
 // Switch clocks
-function switchClocks(timerOn) {
-    (!timerOn && clockType == 0) ? clockType = 1 : clockType = 0;
-    if (timerOn) {
+function switchClocks(stopwatchOn) {
+    if (!stopwatchOn) (clockType == 0) ? clockType = 1 : clockType = 0;
+    if (stopwatchOn) {
         hideAll();
         return;
     }
-    Timer.hideTimer();
+    Stopwatch.hideStopWatch();
     switch (clockType) {
         case 0: clock.hidden = false; tradClock.hidden = true; mHand.hidden = true; hHand.hidden = true; break;
         case 1: clock.hidden = true; tradClock.hidden = false; mHand.hidden = false; hHand.hidden = false; break;
@@ -123,101 +123,109 @@ function minuteRotate(image) {
     }, 1000);
 }
 
-// Timer
-const timerChange = document.querySelector("#changeTimer");
+// stopwatch
+const stopwatchChange = document.querySelector("#changestopwatch");
 const tempStart = document.querySelector("#tempStart");
 const tempStop = document.querySelector("#tempStop");
 let temp, previousTemp, tempType = 0;
 
-timerChange.addEventListener('click', () => {
+stopwatchChange.addEventListener('click', () => {
     if (reset == 1) {
         switchClocks();
         return;
     }
     switchClocks(true);
-    Timer.showTimer();
+    Stopwatch.showStopWatch();
     reset++;
 });
 
 tempStart.addEventListener('click', () => {
     if (tempType == 0) {
-        Timer.beginTimer();
-        tempStart.innerHTML = 'START';
+        Stopwatch.startStopwatch();
         tempType = 1;
     }
     if (tempType == 1) {
+        Stopwatch.startStopwatch();
         tempStart.innerHTML = 'RESET';
-        Timer.beginTimer();
     }
     if (tempType == 2) {
         tempStop.innerHTML = 'STOP';
         tempStart.innerHTML = 'RESET';
-        Timer.beginTimer(previousTemp[0], previousTemp[1], previousTemp[2]);
+        Stopwatch.startStopwatch(previousTemp[0], previousTemp[1], previousTemp[2], previousTemp[3]);
         tempType = 1;
     }
 });
 
 tempStop.addEventListener('click', () => {
+    Stopwatch.stopStopwatch();
     if (tempType == 2) {
-        
+        tempStart.innerHTML = 'START';
+        tempStop.innerHTML = 'STOP';
+        Stopwatch.clear();
+        return;
     }
-    Timer.stopTimer();
     tempStart.innerHTML = 'CONTINUE';
     tempStop.innerHTML = 'CLEAR';
     tempType = 2;
 })
 
-class Timer {
-    static showTimer() {
+class Stopwatch {
+    static showStopWatch() {
         tempStart.hidden = false;
         tempStop.hidden = false;
-        timer.hidden = false;
+        stopwatch.hidden = false;
     }
 
-    static hideTimer() {
-        timer.hidden = true;
+    static hideStopWatch() {
+        stopwatch.hidden = true;
         tempStart.hidden = true;
         tempStop.hidden = true;
         reset = 0;
     }
     
-    static beginTimer (second = 0, minute = 0, hour = 0) {
-        if (tempType != 2) this.stopTimer();
-        const timerNow = [0, 0, 0];
+    static startStopwatch (millisecond = 0, second = 0, minute = 0, hour = 0) {
+        if (tempType != 2) this.stopStopwatch();
+        const stopwatchNow = [0, 0, 0, 0];
         temp = setInterval(() => {
-            second++;
-            timer.innerHTML = this.formattedTimer(second, minute, hour, timerNow);
-        }, 1000);
+            (millisecond > 99) ? millisecond = 0 : millisecond++;
+            if (millisecond < 10) stopwatchNow[3] = '0' + millisecond;
+            else stopwatchNow[3] = millisecond;
+
+            if (millisecond == 100) {
+                stopwatchNow[3] = '00';
+                second++;
+            }
+            
+            (second < 10) ? stopwatchNow[2] = '0' + second : stopwatchNow[2] = second;
+
+            if (second > 59) {
+                second = 0;
+                stopwatchNow[2] = '00';
+                minute++;
+            }
+
+            (minute < 10) ? stopwatchNow[1] = '0' + minute : stopwatchNow[1] = minute;
+
+            if (minute == 60) {
+                minute = 0;
+                stopwatchNow[1] = '00';
+                hour++;
+            }
+
+            (hour < 10) ? stopwatchNow[0] = '0' + hour : stopwatchNow[0] = hour;
+
+            previousTemp = [millisecond, second, minute, hour];
+            stopwatch.innerHTML = `${stopwatchNow[0]}:${stopwatchNow[1]}:${stopwatchNow[2]}:${stopwatchNow[3]}`;
+        }, 10);
     }
 
-    static stopTimer () {
+    static stopStopwatch () {
         clearInterval(temp);
     }
 
-    static formattedTimer(second, minute, hour, hourArray) {
-        if (second < 10) hourArray[2] = '0' + second;
-        else hourArray[2] = second;
-
-        if (hourArray[2] == 60) {
-            hourArray[2] = '00';
-            second = 0;
-            hourArray[2] = 0;
-            minute++;
-        }
-
-        if (minute < 10) hourArray[1] = '0' + minute;
-        else hourArray[1] = minute;
-
-        if (hourArray[1] == 60) {
-            hourArray[1] = '00';
-            minute = 0;
-            hourArray[1] = 0;
-            hour++;
-        }
-
-        if (hour < 10) hourArray[0] = '0' + hour;
-        else hourArray[0] = hour;
-        previousTemp = [second, minute, hour];
-        return `${hourArray[0]}:${hourArray[1]}:${hourArray[2]}`;
+    static clear() {
+        stopwatch.innerHTML = '00:00:00:00';
+        tempStart.innerHTML = 'START';
+        tempType = 1;
     }
 }

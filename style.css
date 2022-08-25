@@ -15,7 +15,7 @@ body {
     font-family: 'dsDigital';
 }
 
-#timer {
+#stopwatch {
     color: rgb(7, 255, 7);
     font-size: 100px;
     font-family: 'dsDigital';
@@ -48,7 +48,7 @@ body {
     background-color: black;
 }
 
-#changeTimer {
+#changestopwatch {
     font-family: 'ds-digital';
     position: absolute;
     left: 50%;
@@ -62,18 +62,21 @@ body {
 }
 
 .tempButtons {
+    position: absolute;
+    left: 50%;
+    top: 10%;
+    transform: translate(-50%, -50%);
     display: flex;
-    justify-content: space-around;
 }
 
 #tempStop, #tempStart {
+    margin: 20px;
     font-family: sans-serif;
     font-weight: bold;
-    font-stretch: expanded;
     cursor: pointer;
     border: 1px solid white;
     border-radius: none;
-    width: 40%;
+    width: 150px;
     height: 50px;
     background-color: rgb(255, 0, 0);
 }
