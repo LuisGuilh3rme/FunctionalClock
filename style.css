@@ -8,6 +8,10 @@ body {
     background-color: black;
 }
 
+span {
+    letter-spacing: 0px;
+    display: block;
+}
 
 #clock {
     color: rgb(7, 255, 7);
@@ -15,7 +19,7 @@ body {
     font-family: 'dsDigital';
 }
 
-#stopwatch {
+#stopWatch {
     color: rgb(7, 255, 7);
     font-size: 100px;
     font-family: 'dsDigital';
@@ -36,26 +40,26 @@ body {
 }
 
 #changeClock {
-    font-family: 'ds-digital';
+    font-family: Arial, Helvetica, sans-serif;
     position: absolute;
     left: 50%;
     top: 75%;
     transform: translate(-50%, -50%);
     cursor: pointer;
-    font-size: 50px;
+    font-size: 40px;
     width: fit-content;
     color: rgb(7, 255, 7);
     background-color: black;
 }
 
 #changestopwatch {
-    font-family: 'ds-digital';
+    font-family: Arial, Helvetica, sans-serif;
     position: absolute;
     left: 50%;
     top: 85%;
     transform: translate(-50%, -50%);
     cursor: pointer;
-    font-size: 50px;
+    font-size: 40px;
     width: fit-content;
     color: rgb(7, 255, 7);
     background-color: black;
@@ -74,11 +78,12 @@ body {
     font-family: sans-serif;
     font-weight: bold;
     cursor: pointer;
-    border: 1px solid white;
-    border-radius: none;
     width: 150px;
     height: 50px;
-    background-color: rgb(255, 0, 0);
+    background-color:#0a0a23;
+    color: #fff;
+    border: 1px solid #0e0e31;
+    border-radius:10px;
 }
 
 #tempStop:hover, #tempStart:hover {

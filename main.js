@@ -2,19 +2,22 @@
 // Clocks
 const tradClock = document.querySelector('#traditionalClock');
 const clock = document.querySelector("#clock");
-const stopwatch = document.querySelector('#stopwatch');
+const stopwatch = document.querySelector('#stopWatch');
 
 const mHand = document.querySelector('#minutesHand');
 const hHand = document.querySelector('#hoursHand');
 
 let clockType = 0;
 let reset = 0;
+let now;
+
+function TimeNow() { now = new Date() };
 
 // Digital Clock
 setInterval(() => {
-    const now = new Date();
+    TimeNow();
     clock.innerHTML = formattedTime(now);
-}, 1000);
+}, 0, 1000);
 
 function formattedTime(now) {
     return `${formattedHour(now.getHours())}:${formattedMinutes(now.getMinutes())}:${formattedSeconds(now.getSeconds())}`
@@ -81,7 +84,7 @@ function display_clock(src, alt) {
 function display_MinutesHand(src, alt) {
     const a = document.createElement("img");
     a.src = src;
-    a.width = 200;
+    a.width = 230;
     a.height = 200;
     a.alt = alt;
     mHand.appendChild(a);
@@ -92,7 +95,7 @@ function display_MinutesHand(src, alt) {
 function display_HoursHand(src, alt) {
     const a = document.createElement("img");
     a.src = src;
-    a.width = 150;
+    a.width = 170;
     a.height = 150;
     a.alt = alt;
     hHand.appendChild(a);
@@ -108,19 +111,17 @@ function noDrag(image) {
 
 function hourRotate(image) {
     setInterval(() => {
-        const now = new Date();
         const total = (now.getMinutes() / 60) + (now.getHours());
         const rotate = 30 * total;
         image.style.transform = `rotate(${rotate}deg)`;
-    }, 1000);
+    }, 0, 1000);
 }
 
 function minuteRotate(image) {
     setInterval(() => {
-        const now = new Date();
-        const rotate = 6 * now.getMinutes();
+        const rotate = (6 * (now.getMinutes() + now.getSeconds()/60));
         image.style.transform = `rotate(${rotate}deg)`;
-    }, 1000);
+    }, 0, 1000);
 }
 
 // stopwatch
@@ -131,6 +132,7 @@ let temp, previousTemp, tempType = 0;
 
 stopwatchChange.addEventListener('click', () => {
     if (reset == 1) {
+        switchClocks();
         switchClocks();
         return;
     }
