@@ -1,6 +1,6 @@
 # FunctionalClock
 Choose between the digital watch or traditional clock.
-
+[View the project here](https://luisguilh3rme.github.io/FunctionalClock/)
 
 ## Features
 **Digital Watch** - View local time in digital clock format.
